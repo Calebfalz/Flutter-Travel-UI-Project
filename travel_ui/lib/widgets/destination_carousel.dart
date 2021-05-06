@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_ui/models/destination_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_ui/screens/destination_screen.dart';
 
 class DestinationCarousel extends StatelessWidget {
   const DestinationCarousel({Key key}) : super(key: key);
@@ -46,105 +47,117 @@ class DestinationCarousel extends StatelessWidget {
             itemCount: destination.length,
             itemBuilder: (BuildContext context, int index) {
               Destination destinations = destination[index];
-              return Container(
-                margin: EdgeInsets.all(10.0),
-                width: 210.0,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    Positioned(
-                      bottom: 15.0,
-                      child: Container(
-                        height: 120.0,
-                        width: 200.0,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${destinations.activities.length} activities",
-                                  style: TextStyle(
-                                    fontSize: 22.0,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.2,
-                                  ),
-                                ),
-                                Text(
-                                  destinations.description,
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ]),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black,
-                              offset: Offset(0.0, 2.0),
-                              blurRadius: 6.0,
-                            )
-                          ]),
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Image(
-                              fit: BoxFit.cover,
-                              image: AssetImage(destinations.imageUrl),
-                              height: 180.0,
-                              width: 180.0,
-                            ),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              DestinationScreen(destination: destinations)));
+                },
+                child: Container(
+                  margin: EdgeInsets.all(10.0),
+                  width: 210.0,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      Positioned(
+                        bottom: 15.0,
+                        child: Container(
+                          height: 120.0,
+                          width: 200.0,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          Positioned(
-                            bottom: 15.0,
-                            left: 10.0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
                             child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    destinations.city,
+                                    "${destinations.activities.length} activities",
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24.0,
+                                      fontSize: 22.0,
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 1.2,
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        FontAwesomeIcons.locationArrow,
-                                        color: Colors.white,
-                                        size: 10.0,
-                                      ),
-                                      Text(
-                                        destinations.country,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
+                                  Text(
+                                    destinations.description,
+                                    style: TextStyle(color: Colors.grey),
                                   ),
                                 ]),
-                          )
-                        ],
+                          ),
+                        ),
                       ),
-                    )
-                  ],
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black,
+                                offset: Offset(0.0, 1.0),
+                                blurRadius: 2.0,
+                              )
+                            ]),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Image(
+                                fit: BoxFit.cover,
+                                image: AssetImage(destinations.imageUrl),
+                                height: 180.0,
+                                width: 180.0,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 15.0,
+                              left: 10.0,
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      destinations.city,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1.2,
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons.locationArrow,
+                                          color: Colors.white,
+                                          size: 10.0,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          destinations.country,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
             },
           ),
-        )
+        ),
       ],
     );
   }

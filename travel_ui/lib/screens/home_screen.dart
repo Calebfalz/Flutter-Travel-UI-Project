@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_ui/widgets/destination_carousel.dart';
+import 'package:travel_ui/widgets/hotel_carousel.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -11,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  int _currentTab = 0;
   List<IconData> icons = [
     FontAwesomeIcons.plane,
     FontAwesomeIcons.bed,
@@ -76,12 +78,50 @@ class _HomeScreenState extends State<HomeScreen> {
                     .toList(),
               ),
               SizedBox(
-                height: 20.0,
+                height: 40,
               ),
               DestinationCarousel(),
+              SizedBox(
+                height: 20.0,
+              ),
+              HotelCarousel()
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey.shade500,
+        backgroundColor: Colors.white,
+        onTap: (value) {
+          setState(() {
+            _currentTab = value;
+          });
+        },
+        currentIndex: _currentTab,
+        items: [
+          BottomNavigationBarItem(
+            title: SizedBox.shrink(),
+            icon: Icon(
+              Icons.search,
+              size: 30,
+            ),
+          ),
+          BottomNavigationBarItem(
+            title: SizedBox.shrink(),
+            icon: Icon(
+              Icons.local_pizza,
+              size: 30,
+            ),
+          ),
+          BottomNavigationBarItem(
+            title: SizedBox.shrink(),
+            icon: CircleAvatar(
+              radius: 15.0,
+              backgroundImage: AssetImage('assets/images/newyork.jpg'),
+            ),
+          ),
+        ],
       ),
     );
   }
